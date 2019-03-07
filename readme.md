@@ -1,4 +1,7 @@
 ## My Go practice code
+### Go Lang notes
+1. [Basic syntax](md_notes/basic.md)
+
 ### Function closure
 Fibonacci generator using function closure.
 Reference : https://www.calhoun.io/5-useful-ways-to-use-closures-in-go/
