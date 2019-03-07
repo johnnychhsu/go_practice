@@ -152,3 +152,62 @@ complex64 complex128
 The `int`, `uint` and `uintptr` types usually use 32 bits on a 32 bits system, 64 bits on a 64 bits system. We should use `int` for int type unless we have specific reason.
 <br />
 
+### For loop
+Go only have for loop. Don't need `()` but `{}` is required.
+```go
+for i := 0; i < 10; i++ {
+		sum += i
+	}
+// the below is while concept
+for sum < 1000 {
+		sum += sum
+	}
+```
+
+### If
+`if` statement can start with a short statement to execute before the condition. Variable declared here can only be used till the end of `if`.
+```go
+func pow(x, n, lim float64) float64 {
+	if v := math.Pow(x, n); v < lim {
+		return v
+	}
+	return 0
+}
+```
+
+### Switch
+Go's switch only runs the selected case, the rest will not be executed. The switch case need not be constant.
+```go
+switch os := runtime.GOOS; os {
+	case "darwin":
+		fmt.Println("OS X.")
+	case "linux":
+		fmt.Println("Linux.")
+	default:
+		// freebsd, openbsd,
+		// plan9, windows...
+		fmt.Printf("%s.", os)
+	}
+```
+<br />
+
+Switch without consition is `switch true`.
+```go
+switch {
+	case t.Hour() < 12:
+		fmt.Println("Good morning!")
+	case t.Hour() < 17:
+		fmt.Println("Good afternoon.")
+	default:
+		fmt.Println("Good evening.")
+	}
+```
+
+### Defer
+A defer function defers the execution of a function until the surrouding function returns.
+```go
+defer fmt.Println("world")
+```
+<br />
+
+Defer stack, defered function calls are pushed onto a stack.
