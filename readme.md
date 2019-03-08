@@ -15,3 +15,5 @@ We prefer receiver type is pointer due to some reasons:
 ### Interface
 It is like a top level representation, different type implement it, as the interface's initialization.
 
+### Why the declaration is different from C ?
+Go believe their declaration style makes the complex declaration more readible.
