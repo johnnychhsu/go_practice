@@ -15,3 +15,5 @@ We prefer receiver type is pointer due to some reasons:
 ### Interface
 It is like a top level representation, different type implement it, as the interface's initialization.
 
+### Reference
+1. [A tour of Go](https://tour.golang.org/basics)
