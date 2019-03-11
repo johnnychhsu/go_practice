@@ -17,3 +17,7 @@ It is like a top level representation, different type implement it, as the inter
 
 ### Reference
 1. [A tour of Go](https://tour.golang.org/basics)
+
+### Why the declaration is different from C ?
+Go believe their declaration style makes the complex declaration more readible.
+

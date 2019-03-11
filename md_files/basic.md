@@ -212,6 +212,7 @@ defer fmt.Println("world")
 
 Defer stack, defered function calls are pushed onto a stack.
 
+<<<<<<< HEAD
 ### Struct
 ```go
 type Vertex struct {
@@ -233,3 +234,81 @@ var (
 )
 ```
 
+### Struct 
+```go
+type Vertex struct {
+    X, Y int
+}
+
+var (
+    v1 = Vertex{1, 2}  // has type Vertex
+    v2 = Vertex{X: 1}  // Y:0 is implicit
+    v3 = Vertex{}      // X:0 and Y:0
+    p  = &Vertex{1, 2} // has type *Vertex
+)
+```
+
+### Array
+An array's length is part of its type, so arrays can't be resized.
+```go
+var a [2]string
+a[0] = "Hello"
+a[1] = "World"
+
+primes := [6]int{2, 3, 5, 7, 11, 13}
+```
+
+### Slices
+It is dynamically sized. It is formed by soecifying two indices, lower and upper bound. This will contain the first element, but excludes the last element.
+<br />
+Slices are like reference of array. Change the content of slice will change the array accordingly. <br />
+A slice literal is like array literal without the length. <br />
+We can omit the two bounds, the default is `[0: length_of_slice]`.
+```go
+// This is array
+primes := [6]int{2, 3, 5, 7, 11, 13}
+
+// This is slice
+var s []int = primes[1:4]
+
+// slice of type struct
+s := []struct {
+        i int
+        b bool
+}{
+    {2, true},
+    {3, false},
+    {5, true},
+    {7, true},
+    {11, false},
+    {13, true},
+}
+```
+<br />
+
+**Slice length and capacity** <br />
+The length of the slice is the number of elements it contains. <br />
+The capacity of a slice is the number of elements in the underlying array.
+```go
+s := []int{2, 3, 5, 7, 11, 13}
+printSlice(s)
+
+// Slice the slice to give it zero length.
+s = s[:0]
+printSlice(s)
+
+// Extend its length.
+s = s[:4]
+printSlice(s)
+
+// Drop its first two values.
+s = s[2:]
+printSlice(s)
+
+// print
+// len=6 cap=6 [2 3 5 7 11 13]
+// len=0 cap=6 []
+// len=4 cap=6 [2 3 5 7]
+// len=2 cap=4 [5 7]
+
+```
