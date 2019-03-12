@@ -212,6 +212,28 @@ defer fmt.Println("world")
 
 Defer stack, defered function calls are pushed onto a stack.
 
+<<<<<<< HEAD
+### Struct
+```go
+type Vertex struct {
+	X int
+	Y int
+}
+
+v := Vertex{1, 2}
+v.X := 7
+p := &v
+p.X = 1e9
+
+var (
+	v1 = Vertex{1, 2}  // has type Vertex
+	v2 = Vertex{X: 1}  // Y:0 is implicit
+	v3 = Vertex{}      // X:0 and Y:0
+	p  = &Vertex{1, 2} // has type *Vertex
+	
+)
+```
+
 ### Struct 
 ```go
 type Vertex struct {
