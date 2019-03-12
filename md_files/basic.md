@@ -279,7 +279,7 @@ printSlice(s)
 s = s[:4]
 printSlice(s)
 
-// Drop its first two values.
+// Drop its first two values, can't bring back those dropped
 s = s[2:]
 printSlice(s)
 
@@ -289,4 +289,39 @@ printSlice(s)
 // len=4 cap=6 [2 3 5 7]
 // len=2 cap=4 [5 7]
 
+```
+The zero value of a slice is `nil`.
+```go
+var s []int
+s == nil
+```
+
+**Create slice with make** <br />
+```go
+a := make([]int, 5)
+printSlice("a", a)
+
+b := make([]int, 0, 5)
+printSlice("b", b)
+
+c := b[:2]
+printSlice("c", c)
+
+d := c[2:5]
+printSlice("d", d)
+
+// a len=5 cap=5 [0 0 0 0 0]
+// b len=0 cap=5 []
+// c len=2 cap=5 [0 0]
+// d len=3 cap=3 [0 0 0]
+```
+
+**Slice of slices** <br />
+```go
+// Create a tic-tac-toe board.
+board := [][]string{
+    []string{"_", "_", "_"},
+    []string{"_", "_", "_"},
+    []string{"_", "_", "_"},
+}
 ```

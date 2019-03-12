@@ -17,3 +17,6 @@ It is like a top level representation, different type implement it, as the inter
 
 ### Why the declaration is different from C ?
 Go believe their declaration style makes the complex declaration more readible.
+
+### Refereence
+1. [Slice and Array](https://blog.golang.org/go-slices-usage-and-internals)
