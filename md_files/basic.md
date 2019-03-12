@@ -260,6 +260,10 @@ primes := [6]int{2, 3, 5, 7, 11, 13}
 
 ### Slices
 It is dynamically sized. It is formed by soecifying two indices, lower and upper bound. This will contain the first element, but excludes the last element.
+A slice is a struct contain : 1
+1. A pointer to the head of under-lying array.
+2. length of the slice.
+3. capacity of the under-lying array.
 <br />
 Slices are like reference of array. Change the content of slice will change the array accordingly. <br />
 A slice literal is like array literal without the length. <br />
@@ -318,7 +322,7 @@ var s []int
 s == nil
 ```
 
-**Create slice with make** <br />
+**Create slice with make and copy** <br />
 ```go
 a := make([]int, 5)
 printSlice("a", a)
@@ -345,5 +349,23 @@ board := [][]string{
     []string{"_", "_", "_"},
     []string{"_", "_", "_"},
     []string{"_", "_", "_"},
+}
+```
+
+**Append** <br />
+```go
+var a []int
+a = append(a, 1, 2, 3)
+```
+
+**A possible usage** <br />
+We only need the specific value in the entire file, but because we have a slice reference to it, the entire array can't not br free. Thus we can copy those we are interested in, then return the new slice.
+```go
+func CopyDigits(filename string) []byte {
+    b, _ := ioutil.ReadFile(filename)
+    b = digitRegexp.Find(b)
+    c := make([]byte, len(b))
+    copy(c, b)
+    return c
 }
 ```
