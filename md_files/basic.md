@@ -446,3 +446,33 @@ func main() {
     }
 }
 ```
+
+### Method
+Go doesn't have class, but we can define method on types. A method is a function with a special receiver argument.
+```go
+type Vertex struct {
+    X, Y float64
+}
+
+func (v Vertex) Abs() float64 {
+    return math.Sqrt(v.X*v.X + v.Y*v.Y)
+}
+
+func main() {
+    v := Vertex{3, 4}
+    fmt.Println(v.Abs())
+}
+```
+We can define the receiver on non-struct type too. However, we can't declare a receiver whose type is defined in another package (include built-in types such as int, float64).
+<br />
+
+We can also use pointer as receiver. Note that built-in type can't be used as `*int`. Thus we need to define our own type so that we can use it as a pointer.
+```go
+func (v *Vertex) Scale(f float64) {
+    v.X = v.X * f
+    v.Y = v.Y * f
+}
+```
+A method with receiver type value or pointer, can both be accessed by pointer and value variable. However, a function needs exacly what type the argument is.
+<br />
+We usually use pointer receiver, because we then don't need to copy the value every time, it is more sufficient. Also, we should use one for all method for a designated type, not mixture of both.
