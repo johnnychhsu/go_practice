@@ -476,3 +476,116 @@ func (v *Vertex) Scale(f float64) {
 A method with receiver type value or pointer, can both be accessed by pointer and value variable. However, a function needs exacly what type the argument is.
 <br />
 We usually use pointer receiver, because we then don't need to copy the value every time, it is more sufficient. Also, we should use one for all method for a designated type, not mixture of both.
+
+### Interface
+We can define a interface, which is a set of method signature. Then we can use different type and method to implement it. 
+```go
+type Abser interface {
+    Abs() float64
+}
+
+func main() {
+    var a Abser
+    f := MyFloat(-math.Sqrt2)
+    v := Vertex{3, 4}
+
+    a = f  // a MyFloat implements Abser
+    a = &v // a *Vertex implements Abser
+
+    // In the following line, v is a Vertex (not *Vertex)
+    // and does NOT implement Abser.
+    
+
+    fmt.Println(a.Abs())
+}
+
+type MyFloat float64
+
+func (f MyFloat) Abs() float64 {
+    if f < 0 {
+        return float64(-f)
+    }
+    return float64(f)
+}
+
+type Vertex struct {
+    X, Y float64
+}
+
+func (v *Vertex) Abs() float64 {
+    return math.Sqrt(v.X*v.X + v.Y*v.Y)
+}
+```
+**Interfaces are implemented implicitly** <br />
+Implicit interfaces decouple the definitino and implementation, which can then appear in any package without prearrengement.
+<br />
+
+**Interface value** <br />
+It can be thought of as a tuple of a value and its concrete type :
+```
+(vaule, type)
+```
+The value can be `nil`. <br />
+
+**Nil interface value** <br />
+Interface that doesn't hold any concrete type. This will cause run time error.
+<br />
+
+**Empty Interface** <br />
+An empty interface can hold any type. It is used for handling unknown type.
+```go
+func main() {
+    var i interface{}
+    describe(i)
+    // (<nil>, <nil>)
+
+    i = 42
+    describe(i)
+    // (42, int)
+
+    i = "hello"
+    describe(i)
+    // (hello, string)
+}
+```
+**Type assertion** <br />
+```go
+func main() {
+    var i interface{} = "hello"
+
+    s := i.(string)
+    fmt.Println(s)
+    // hello
+
+    s, ok := i.(string)
+    fmt.Println(s, ok)
+    // hello true
+
+    f, ok := i.(float64)
+    fmt.Println(f, ok)
+    // 0 false
+
+    f = i.(float64) // panic
+    fmt.Println(f)
+}
+```
+
+**Type Switch** <br />
+```go
+func do(i interface{}) {
+    switch v := i.(type) {
+    case int:
+        fmt.Printf("Twice %v is %v\n", v, v*2)
+    case string:
+        fmt.Printf("%q is %v bytes long\n", v, len(v))
+    default:
+        fmt.Printf("I don't know about type %T!\n", v)
+    }
+}
+
+func main() {
+    do(21)
+    do("hello")
+    do(true)
+}
+```
