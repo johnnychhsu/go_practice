@@ -589,3 +589,26 @@ func main() {
     do(true)
 }
 ```
+
+**Stringer** <br />
+We can define a stringer function, so `fmt` will look for this method while we want to print the custom type.
+```go
+func (ip IPAddr) String() string {
+    return fmt.Sprintf("%v.%v.%v.%v", ip[0], ip[1], ip[2], ip[3])
+}
+```
+
+**Error** <br />
+The error type is a built-in interface similar to fmt.Stringer : 
+```go
+type error interface {
+    Error() string
+}
+
+func (e *MyError) Error() string {
+    return fmt.Sprintf("at %v, %s",
+        e.When, e.What)
+}
+
+i, err := strconv.Atoi("42")
+```
