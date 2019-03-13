@@ -1,6 +1,7 @@
 ## My Go practice code
 ### Go Lang notes
 1. [Basic syntax](md_files/basic.md)
+1. [Concurrency](md_files/concurrency.md)
 
 ### Function closure
 Fibonacci generator using function closure.
