@@ -425,3 +425,24 @@ func main() {
     fmt.Println("The value:", v, "Present?", ok)
 }
 ```
+### Function closure
+We can't define a function inside a function in Go. But we can pass a function as parameter into a function. If a function use a variable outside its scope, then we say there is a closure. The inner function will keep the variable itself, not only the value (like a pointer),
+```go
+func adder() func(int) int {
+    sum := 0
+    return func(x int) int {
+        sum += x
+        return sum
+    }
+}
+
+func main() {
+    pos, neg := adder(), adder()
+    for i := 0; i < 10; i++ {
+        fmt.Println(
+            pos(i),
+            neg(-2*i),
+        )
+    }
+}
+```
