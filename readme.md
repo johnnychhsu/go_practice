@@ -22,4 +22,4 @@ Go believe their declaration style makes the complex declaration more readible.
 ### Reference
 1. [A tour of Go](https://tour.golang.org/basics)
 2. [Slice and Array](https://blog.golang.org/go-slices-usage-and-internals)
-
+3. [Go中文筆記](https://openhome.cc/Gossip/Go/index.html)
