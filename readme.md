@@ -1,7 +1,11 @@
 ## My Go practice code
 ### Go Lang notes
 1. [Basic syntax](md_files/basic.md)
-1. [Concurrency](md_files/concurrency.md)
+2. [Concurrency](md_files/concurrency.md)
+
+### Some special feature in Go
+**Defer** <br />
+A defer statement will hold until surrounding function finish executing.
 
 ### Function closure
 Fibonacci generator using function closure.
