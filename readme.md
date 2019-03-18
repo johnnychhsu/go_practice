@@ -46,6 +46,9 @@ func b() {
 ### Why the declaration is different from C ?
 Go believe their declaration style makes the complex declaration more readible.
 
+### Projects
+1. [A simple server example](https://github.com/johnnychhsu/wikigo)
+
 ### Reference
 1. [A tour of Go](https://tour.golang.org/basics)
 2. [Slice and Array](https://blog.golang.org/go-slices-usage-and-internals)
