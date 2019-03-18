@@ -7,8 +7,38 @@
 **Defer** <br />
 A defer statement will hold until surrounding function finish executing.
 
+### Function literal
+A function literal represents a anonymous function.
+
 ### Function closure
-Fibonacci generator using function closure.
+They may refer to variables defined in an enclosing function. Such variables :
+1. are shared between the surrounding function and function literal
+2. and survived as long as they are accessible
+```go
+// NewCounter returns a function Count.
+// Count prints the number of times it has been invoked.
+func NewCounter() (Count func()) {
+	n := 0
+	return func() {
+		n++
+		fmt.Println(n)
+	}
+}
+
+func main() {
+	counter := NewCounter()
+	otherCounter := NewCounter()
+
+	counter()      // 1
+	counter()      // 2
+	counter()      // 3
+	otherCounter() // 1 (different n)
+	otherCounter() // 2
+	counter()      // 4
+}
+```
+
+Fibonacci generator using function closure. <br />
 Reference : https://www.calhoun.io/5-useful-ways-to-use-closures-in-go/
 
 ### Function Receiver
