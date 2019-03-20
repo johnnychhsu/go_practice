@@ -1,3 +1,9 @@
+## Concurrency
+### Why go routine is good?
+1. [Go routine is not light weighr process](https://codeburst.io/why-goroutines-are-not-lightweight-threads-7c460c1f155f)
+Goroutine exitsts in only in the virtual space of go routine, not in the OS (different from thread). Thus, blocking is fine, because we can use channels in go which exactly only in virtual space, the OS doesn't block the thread. Such goroutine simply go in waiting state and other runnable goroutine (from M struct) is scheduled. <br />
+ 
+
 ### Goroutine
 A goroutine is a light weight thread managed by Go runtime.
 ```go
