@@ -405,6 +405,7 @@ var m = map[string]Vertex{
     "Google":    {37.42202, -122.08408},
 }
 ```
+If the required key is not in the map, the map will return 0.
 
 **Mutating Map** <br />
 We can use `ele, ok` to get element. If the key is not there, `ok` will be `False`.
