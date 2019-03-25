@@ -35,6 +35,9 @@ for _, val := range values {
 }
 ```
 If we don't pass the `val` to the inside function, the goroutine might not be executed until the for loop ends. Thus, we might see all goroutine print the last element. 
+<br />
+**Reference** <br />
+1. [Closure and goroutine](https://github.com/golang/go/wiki/CommonMistakes#using-goroutines-on-loop-iterator-variables)
 
 ### Channels
 ```go
