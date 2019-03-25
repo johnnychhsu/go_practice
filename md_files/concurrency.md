@@ -26,6 +26,14 @@ func main() {
 }
 
 ```
+If we want to use goroutine insiede a for loop, we should do like this
+```go
+for _, val := range values {
+	go func(val interface{}) {
+		fmt.Println(val)
+	}(val)
+}
+```
 
 ### Channels
 ```go
