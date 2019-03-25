@@ -34,6 +34,7 @@ for _, val := range values {
 	}(val)
 }
 ```
+If we don't pass the `val` to the inside function, the goroutine might not be executed until the for loop ends. Thus, we might see all goroutine print the last element. 
 
 ### Channels
 ```go
