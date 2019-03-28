@@ -157,3 +157,23 @@ func main() {
     fmt.Println("Should return false:", Same(tree.New(1), tree.New(2)))
 }
 ```
+
+### sync.WaitGroup
+Add would add one tasks to queue, done would remove one, and wait would force the main process to wait until all goroutines are done.
+```go
+var waitgroup sync.WaitGroup
+ 
+func test(shownum int) {
+	fmt.Println(shownum)
+	waitgroup.Done() //任务完成，将任务队列中的任务数量-1，其实.Done就是.Add(-1)
+}
+ 
+func main() {
+	for i := 0; i < 10; i++ {
+		waitgroup.Add(1) //每创建一个goroutine，就把任务队列中任务的数量+1
+		go test(i)
+	}
+	waitgroup.Wait() //.Wait()这里会发生阻塞，直到队列中所有的任务结束就会解除阻塞
+	fmt.Println("done!")
+}
+```
