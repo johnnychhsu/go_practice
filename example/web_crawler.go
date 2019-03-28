@@ -4,11 +4,13 @@ import (
 	"fmt"
 	"sync"
 )
+
+var waitgroup sync.WaitGroup
+
 type SafeRecord struct {
-	record   map[string]int
+	record map[string]int
 	mux sync.Mutex
 }
-
 
 type Fetcher interface {
 	// Fetch returns the body of URL and
@@ -18,27 +20,25 @@ type Fetcher interface {
 
 // Crawl uses fetcher to recursively crawl
 // pages starting with url, to a maximum of depth.
-func Crawl(url string, depth int, fetcher Fetcher, r SafeRecord) {
+func Crawl(url string, depth int, fetcher Fetcher, r *SafeRecord) {
 	// TODO: Fetch URLs in parallel.
 	// TODO: Don't fetch the same URL twice.
 	// This implementation doesn't do either:
+	defer waitgroup.Done()
 	if depth <= 0 {
 		return
 	}
-	body, urls, err := fetcher.Fetch(url)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	fmt.Printf("found: %s %q\n", url, body)
-	for _, u := range urls {
-		r.mux.Lock()
-		if r.record[url] == 0 {
-			r.record[url] = 1
-			r.mux.Unlock()
-			go Crawl(u, depth-1, fetcher, r)
-		}else {
-			r.mux.Unlock()
+	if _, ok := r.record[url]; !ok {
+		body, urls, err := fetcher.Fetch(url)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		fmt.Printf("found: %s %q\n", url, body)
+		r.record[url] = 1
+		for _, url := range urls {
+			waitgroup.Add(1)
+			go Crawl(url, depth-1, fetcher, r)
 		}
 	}
 	return
@@ -46,7 +46,9 @@ func Crawl(url string, depth int, fetcher Fetcher, r SafeRecord) {
 
 func main() {
 	r := SafeRecord{record: make(map[string]int)}
-	Crawl("https://golang.org/", 4, fetcher, r)
+	waitgroup.Add(1)
+	Crawl("https://golang.org/", 4, fetcher, &r)
+	waitgroup.Wait()
 }
 
 // fakeFetcher is Fetcher that returns canned results.
