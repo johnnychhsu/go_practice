@@ -9,9 +9,12 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
+	"sync"
 
 	"github.com/PuerkitoBio/goquery"
 )
+
+var syncgroup sync.WaitGroup
 
 func connect(url string) *http.Response {
 	res, err := http.Get(url)
@@ -84,6 +87,7 @@ func pagePic(pageURLprefix string, pNum int) {
 			picSave(ref)
 		}
 	})
+	syncgroup.Done()
 }
 
 func pttCrawler(url string, targetPage int) {
@@ -116,7 +120,8 @@ func pttCrawler(url string, targetPage int) {
 				log.Fatal(err)
 			}
 			for i := s; i >= s-targetPage; i-- {
-				pagePic(pageURLPrefix, i)
+				syncgroup.Add(1)
+				go pagePic(pageURLPrefix, i)
 			}
 		}
 	})
@@ -126,4 +131,5 @@ func main() {
 	board := "https://www.ptt.cc/bbs/Beauty/index.html"
 	targetPage := 1
 	pttCrawler(board, targetPage)
+	syncgroup.Wait()
 }
