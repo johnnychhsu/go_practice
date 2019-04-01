@@ -1,2 +1,4 @@
 src/
 bin/
+img/
+.DS_Store
